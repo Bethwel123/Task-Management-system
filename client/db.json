@@ -1,0 +1,71 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Complete Project Proposal",
+      "description": "Draft and finalize the Q4 project proposal for client review",
+      "priority": "high",
+      "category": "Work",
+      "completed": true,
+      "due_date": "2024-02-15",
+      "created_at": "2024-01-20T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "title": "Grocery Shopping",
+      "description": "Buy fruits, vegetables, and weekly essentials",
+      "priority": "medium",
+      "category": "Personal",
+      "completed": false,
+      "due_date": "2024-01-21",
+      "created_at": "2024-01-19T15:30:00Z"
+    },
+    {
+      "id": "3",
+      "title": "Team Meeting",
+      "description": "Weekly sync with development team",
+      "priority": "high",
+      "category": "Work",
+      "completed": false,
+      "due_date": "2024-01-22",
+      "created_at": "2024-01-18T09:00:00Z"
+    },
+    {
+      "id": "4",
+      "title": "Gym Session",
+      "description": "Cardio and strength training",
+      "priority": "low",
+      "category": "Health",
+      "completed": false,
+      "due_date": "2024-01-21",
+      "created_at": "2024-01-20T08:00:00Z"
+    },
+    {
+      "id": "5",
+      "title": "Code Review",
+      "description": "Review pull requests for new features",
+      "priority": "high",
+      "category": "Work",
+      "completed": true,
+      "due_date": "2024-01-23",
+      "created_at": "2024-01-20T11:00:00Z"
+    }
+  ],
+  "priorities": [
+    {
+      "id": "1",
+      "level": "high",
+      "color": "#dc3545"
+    },
+    {
+      "id": "2",
+      "level": "medium",
+      "color": "#ffc107"
+    },
+    {
+      "id": "3",
+      "level": "low",
+      "color": "#28a745"
+    }
+  ]
+}
