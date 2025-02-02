@@ -4,7 +4,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-function AddTask() {
+function AddTask({onTaskAdded}) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('medium');
@@ -28,6 +28,9 @@ function AddTask() {
       setPriority('medium');
       setDueDate(null);
       setCategory('');
+
+      // Fetch the updated task list
+      onTaskAdded();
     } catch (error) {
       console.error('Error adding task:', error);
     }

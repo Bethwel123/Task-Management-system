@@ -24,3 +24,8 @@ class Task(db.Model):
             'due_date': self.due_date.isoformat() if self.due_date else None,
             'created_at': self.created_at.isoformat()
         }
+    
+    def update(self, data):
+        for key, value in data.items():
+            setattr(self, key, value)
+        return self
