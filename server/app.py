@@ -24,4 +24,5 @@ from routes import task_routes, priority_routes
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5555)
+    port = int(os.environ.get("PORT", 5555))
+    app.run(host="0.0.0.0", port=port, debug=True)

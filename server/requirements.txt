@@ -27,3 +27,5 @@ tzdata
 virtualenv
 Werkzeug
 zipp
+gunicorn
+psycopg2-binary
