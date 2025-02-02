@@ -29,6 +29,7 @@ body {
 .dashboard-card:hover {
   transform: translateY(-5px);
   animation: pulse 1s infinite;
+  opacity: 0.8;
 }
 
 /* Task List Styles */
@@ -57,21 +58,6 @@ body {
   gap: 8px;
 }
 
-.priority-high::before {
-  content: '🔥';
-  margin-right: 8px;
-}
-
-.priority-medium::before {
-  content: '⚡';
-  margin-right: 8px;
-}
-
-.priority-low::before {
-  content: '🌟';
-  margin-right: 8px;
-}
-
 /* Add Task Form Styles */
 .add-task-card {
   background-color: #ffffff;
@@ -86,6 +72,15 @@ body {
 }
 
 /* Progress Bar Styles */
+.overal-progress {
+  color: #ffffff;
+  background-color: rgb(20, 20, 62);
+  height: 30px;
+  width: 8em;
+  padding: 2px;
+  text-align: center;
+  border-radius: 5px;
+}
 .progress {
   height: 20px;
   border-radius: 10px;

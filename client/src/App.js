@@ -13,9 +13,6 @@ function App() {
   const [tasks, setTasks] = React.useState([]);
   const [categories] = React.useState([]);
 
-
-
-
   const refreshTasks = async () => {
     try {
       const response = await axios.get('http://localhost:5555/tasks');
@@ -39,7 +36,6 @@ function App() {
         <TaskProgress tasks={tasks} />
         <ExportTasks tasks={tasks} />
       </div>
-
 
       <AddTask onTaskAdded={refreshTasks} categories={categories} />
       

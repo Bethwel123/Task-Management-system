@@ -11,41 +11,42 @@ import {
 } from "react-bootstrap";
 import EditTaskModal from "./EditTaskModal";
 import axios from "axios";
-import AddTask from "./AddTask";
 
-function TaskList() {
-  const [tasks, setTasks] = useState([]);
+function TaskList({tasks, onTasksUpdated}) {
+  // const [tasks, setTasks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("created_at");
   const [filterPriority, setFilterPriority] = useState("all");
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+  // useEffect(() => {
+  //   fetchTasks();
+  // }, []);
 
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get("http://localhost:5555/tasks");
-      setTasks(response.data);
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
-  };
+  // const fetchTasks = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:5555/tasks");
+  //     setTasks(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching tasks:", error);
+  //   }
+  // };
 
   const toggleComplete = async (taskId) => {
     try {
-      const task = tasks.find((t) => t.id === taskId);
-      // Only send the completed status
-      await axios.patch(`http://localhost:5555/tasks/${taskId}`, {
-        completed: !task.completed,
-      });
-      fetchTasks();
+        const task = tasks.find((t) => t.id === taskId);
+        // Only send the completed status
+        await axios.patch(`http://localhost:5555/tasks/${taskId}`, {
+            completed: !task.completed
+        });
+        // fetchTasks();
+        onTasksUpdated();
     } catch (error) {
-      console.error("Error updating task:", error);
+        console.error("Error updating task:", error);
     }
-  };
+};
+
 
   const handleUpdateTask = async (updatedTask) => {
     try {
@@ -55,18 +56,14 @@ function TaskList() {
         description: updatedTask.description,
         priority: updatedTask.priority,
         category: updatedTask.category,
-        due_date: updatedTask.due_date
-          ? new Date(updatedTask.due_date).toISOString()
-          : null,
+        due_date: updatedTask.due_date ? new Date(updatedTask.due_date).toISOString() : null
       };
 
-      const response = await axios.patch(
+      await axios.patch(
         `http://localhost:5555/tasks/${updatedTask.id}`,
         taskData
       );
-      console.log("Update response:", response.data);
-      fetchTasks();
-      fetchTasks();
+      onTasksUpdated();
     } catch (error) {
       console.error("Error updating task:", error);
     }
@@ -80,7 +77,7 @@ function TaskList() {
   const deleteTask = async (taskId) => {
     try {
       await axios.delete(`http://localhost:5555/tasks/${taskId}`);
-      fetchTasks();
+      onTasksUpdated();
     } catch (error) {
       console.error("Error deleting task:", error);
     }
@@ -135,119 +132,111 @@ function TaskList() {
   };
 
   return (
-    <>
-    <AddTask onTaskAdded={fetchTasks} />
-      <Card>
-        <Card.Body>
-          <Row className="mb-3">
-            <Col md={4}>
-              <Form.Control
-                type="text"
-                placeholder="Search tasks..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </Col>
-            <Col md={4}>
-              <Form.Select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="created_at">Sort by Date Created</option>
-                <option value="due_date">Sort by Due Date</option>
-                <option value="priority">Sort by Priority</option>
-              </Form.Select>
-            </Col>
-            <Col md={4}>
-              <Form.Select
-                value={filterPriority}
-                onChange={(e) => setFilterPriority(e.target.value)}
-              >
-                <option value="all">All Priorities</option>
-                <option value="high">High Priority</option>
-                <option value="medium">Medium Priority</option>
-                <option value="low">Low Priority</option>
-              </Form.Select>
-            </Col>
-          </Row>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <ListGroup>
-              {filterTasks().map((task) => (
-                <ListGroup.Item
-                  key={task.id}
-                  className="d-flex justify-content-between align-items-center"
-                >
-                  <div className="task-content">
-                    <h5
-                      style={{
-                        textDecoration: task.completed
-                          ? "line-through"
-                          : "none",
-                      }}
-                    >
-                      {task.title}
-                      <Badge
-                        bg={getPriorityColor(task.priority)}
-                        className="ms-2"
-                      >
-                        {task.priority}
-                      </Badge>
-                      {task.category && (
-                        <Badge bg="secondary" className="ms-2">
-                          {task.category}
-                        </Badge>
-                      )}
-                    </h5>
-                    <p className="mb-1">{task.description}</p>
-                    {task.due_date && (
-                      <small className="text-muted">
-                        Due: {formatDate(task.due_date)}
-                      </small>
-                    )}
-                  </div>
-                  <div className="task-actions">
-                    <Button
-                      variant={task.completed ? "success" : "outline-success"}
-                      className="me-2"
-                      onClick={() => toggleComplete(task.id)}
-                    >
-                      ✓
-                    </Button>
-                    <Button
-                      variant="warning"
-                      className="me-2"
-                      onClick={() => handleEditClick(task)}
-                    >
-                      ✎
-                    </Button>
-                    <Button
-                      variant="danger"
-                      onClick={() => deleteTask(task.id)}
-                    >
-                      ×
-                    </Button>
-                  </div>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-          </motion.div>
-
-          {selectedTask && (
-            <EditTaskModal
-              show={showEditModal}
-              handleClose={() => setShowEditModal(false)}
-              task={selectedTask}
-              handleUpdate={handleUpdateTask}
+    <Card>
+      <Card.Body>
+        <Row className="mb-3">
+          <Col md={4}>
+            <Form.Control
+              type="text"
+              placeholder="Search tasks..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-          )}
-        </Card.Body>
-      </Card>
-    </>
+          </Col>
+          <Col md={4}>
+            <Form.Select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="created_at">Sort by Date Created</option>
+              <option value="due_date">Sort by Due Date</option>
+              <option value="priority">Sort by Priority</option>
+            </Form.Select>
+          </Col>
+          <Col md={4}>
+            <Form.Select
+              value={filterPriority}
+              onChange={(e) => setFilterPriority(e.target.value)}
+            >
+              <option value="all">All Priorities</option>
+              <option value="high">High Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="low">Low Priority</option>
+            </Form.Select>
+          </Col>
+        </Row>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <ListGroup>
+            {filterTasks().map((task) => (
+              <ListGroup.Item
+                key={task.id}
+                className="d-flex justify-content-between align-items-center"
+              >
+                <div className="task-content">
+                  <h5
+                    style={{
+                      textDecoration: task.completed ? "line-through" : "none",
+                    }}
+                  >
+                    {task.title}
+                    <Badge
+                      bg={getPriorityColor(task.priority)}
+                      className="ms-2"
+                    >
+                      {task.priority}
+                    </Badge>
+                    {task.category && (
+                      <Badge bg="secondary" className="ms-2">
+                        {task.category}
+                      </Badge>
+                    )}
+                  </h5>
+                  <p className="mb-1">{task.description}</p>
+                  {task.due_date && (
+                    <small className="text-muted">
+                      Due: {formatDate(task.due_date)}
+                    </small>
+                  )}
+                </div>
+                <div className="task-actions">
+                  <Button
+                    variant={task.completed ? "success" : "outline-success"}
+                    className="me-2"
+                    onClick={() => toggleComplete(task.id)}
+                  >
+                    ✓
+                  </Button>
+                  <Button
+                    variant="warning"
+                    className="me-2"
+                    onClick={() => handleEditClick(task)}
+                  >
+                    ✎
+                  </Button>
+                  <Button variant="danger" onClick={() => deleteTask(task.id)}>
+                    ×
+                  </Button>
+                </div>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </motion.div>
+
+        {selectedTask && (
+          <EditTaskModal
+            show={showEditModal}
+            handleClose={() => setShowEditModal(false)}
+            task={selectedTask}
+            handleUpdate={handleUpdateTask}
+          />
+        )}
+      </Card.Body>
+    </Card>
   );
 }
 

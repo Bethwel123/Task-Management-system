@@ -9,7 +9,7 @@ function TaskProgress({ tasks }) {
 
   return (
     <div className="mb-4">
-      <h5>Overall Progress</h5>
+      <h5 className='overal-progress'>Overall Progress</h5>
       <ProgressBar>
         <ProgressBar variant="success" now={calculateProgress()} label={`${calculateProgress()}%`} />
       </ProgressBar>
