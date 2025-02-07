@@ -33,3 +33,4 @@ Flask
 Flask-SQLAlchemy
 Flask-CORS
 python-dotenv
+Flask-Migrate

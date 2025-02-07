@@ -29,31 +29,6 @@ def create_tasks():
     db.session.commit()
     return jsonify({'message': 'Task created successfully'}), 201
 
-# @app.route('/tasks/<int:id>', methods=['PATCH'])
-# def update_task(id):
-#     task = Task.query.get_or_404(id)
-#     data = request.json
-
-#     # Parse the 'due_date' field
-#     # if 'due_date' in data and data['due_date']:
-#     #     try:
-#     #         data['due_date'] = datetime.fromisoformat(data['due_date'])
-#     #     except ValueError:
-#     #         return jsonify({'error': 'Invalid date format. Use ISO 8601 format.'})
-        
-#     # Handle the completed data separately
-#     if 'completed' in data:
-#         task.completed = data['completed']
-    
-#     # Handle the other fields
-#     for key, value in data.items():
-#         if key != "completed" and hasattr(task, key):
-#             if key == 'due_date' and value:
-#                 value = datetime.fromisoformat(value.replace('Z', ''))
-#             setattr(task, key, value)
-#     db.session.commit()
-#     return jsonify({'message': 'Task updated successfully'})
-
 @app.route('/tasks/<int:id>', methods=['PATCH'])
 def update_task(id):
     task = Task.query.get_or_404(id)
