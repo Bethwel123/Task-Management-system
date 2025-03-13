@@ -1,4 +1,4 @@
-from .db import db
+from app import db
 
 class Priority(db.Model):
     __tablename__ = 'priorities'
