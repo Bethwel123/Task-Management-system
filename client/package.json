@@ -49,5 +49,10 @@
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
     "react-scripts": "^5.0.1"
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-private-property-in-object"
+    ]
   }
 }
