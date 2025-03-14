@@ -15,7 +15,7 @@ function App() {
 
   const refreshTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:5555/tasks');
+      const response = await axios.get('https://task-management-system-2y4j.onrender.com/tasks');
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);

@@ -14,7 +14,7 @@ function AddTask({ onTaskAdded}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5555/tasks', {
+      await axios.post('https://task-management-system-2y4j.onrender.com/tasks', {
         title,
         description,
         completed: false,

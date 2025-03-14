@@ -26,7 +26,7 @@ function TaskList({tasks, onTasksUpdated}) {
 
   // const fetchTasks = async () => {
   //   try {
-  //     const response = await axios.get("http://localhost:5555/tasks");
+  //     const response = await axios.get("https://task-management-system-2y4j.onrender.com/tasks");
   //     setTasks(response.data);
   //   } catch (error) {
   //     console.error("Error fetching tasks:", error);
@@ -37,7 +37,7 @@ function TaskList({tasks, onTasksUpdated}) {
     try {
         const task = tasks.find((t) => t.id === taskId);
         // Only send the completed status
-        await axios.patch(`http://localhost:5555/tasks/${taskId}`, {
+        await axios.patch(`https://task-management-system-2y4j.onrender.com/tasks/${taskId}`, {
             completed: !task.completed
         });
         // fetchTasks();
@@ -60,7 +60,7 @@ function TaskList({tasks, onTasksUpdated}) {
       };
 
       await axios.patch(
-        `http://localhost:5555/tasks/${updatedTask.id}`,
+        `https://task-management-system-2y4j.onrender.com/tasks/${updatedTask.id}`,
         taskData
       );
       onTasksUpdated();
@@ -76,7 +76,7 @@ function TaskList({tasks, onTasksUpdated}) {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5555/tasks/${taskId}`);
+      await axios.delete(`https://task-management-system-2y4j.onrender.com/tasks/${taskId}`);
       onTasksUpdated();
     } catch (error) {
       console.error("Error deleting task:", error);

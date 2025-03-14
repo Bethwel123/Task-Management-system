@@ -2,8 +2,8 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxt" : "http://127.0.0.1:5555",
-  "dependancies" : {
+  "proxy": "https://task-management-system-2y4j.onrender.com",
+  "dependancies": {
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.7.9",
@@ -42,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "react-scripts": "^5.0.1"
   }
 }
